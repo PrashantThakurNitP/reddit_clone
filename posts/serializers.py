@@ -7,9 +7,13 @@ class PostSerializer(serializers.ModelSerializer):
 	poster=serializers.ReadOnlyField(source='poster.username')
 	poster_id=serializers.ReadOnlyField(source='poster.id')
 	#we make the field read only field and we have specified source from where data will come
+	votes=serializers.SerializerMethodField()
+
 	class Meta:
 		model=Post
-		fields=['id','title','url','poster','poster_id','created']
+		fields=['id','title','url','poster','poster_id','created','votes']
+	def get_votes(self,post):
+		return Vote.objects.filter(post=post).count()
 		#id is explicitly listed as field but it is included with eveny django model
 		#this is saying if someone want to get post from database it can come out as model 
 		#go through serializer  and eventually convert into json
