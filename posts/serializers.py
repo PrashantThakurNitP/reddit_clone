@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Post#import post models
+from .models import Post,Vote#import post and vote models
 #there are different kind of serializer
 #ModelSerializer convert model into json
 class PostSerializer(serializers.ModelSerializer):
@@ -16,3 +16,9 @@ class PostSerializer(serializers.ModelSerializer):
 
 	#tell what field from model we want to associate with api
 
+class VoteSerializer(serializers.ModelSerializer):
+	
+	class Meta:
+		model=Vote
+		fields=['id']
+		#we don't decide username when we vote , it will be contained in url
